@@ -1,0 +1,328 @@
+
+<style>
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .container {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  .header h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .header p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group.full {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: #555;
+  }
+
+  input, select, textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  textarea {
+    min-height: 80px;
+  }
+
+  .tone-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pill {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .pill.active {
+    background: #4f46e5;
+    color: white;
+    border-color: #4f46e5;
+  }
+
+  .generate-btn {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .generate-btn:hover {
+    opacity: 0.9;
+  }
+
+  .output-section {
+    margin-top: 20px;
+    display: none;
+  }
+
+  .output-section.visible {
+    display: block;
+  }
+
+  .output-card {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+  }
+
+  .subject-line {
+    font-size: 13px;
+    margin-bottom: 10px;
+    color: #555;
+  }
+
+  .email-body {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .copy-btn {
+    margin-top: 10px;
+    padding: 6px 10px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+</style>
+</style>
+
+<div class="container">
+  <h2 class="sr-only">AI-powered email message writer. Fill in the form fields and click generate to create a polished email.</h2>
+  <div class="header">
+    <h2>Email writer</h2>
+    <p>Fill in the details and let AI craft your email</p>
+  </div>
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label>To (recipient name)</label>
+      <input type="text" id="recipient" placeholder="e.g. Sarah, the team..." />
+    </div>
+    <div class="form-group">
+      <label>From (your name)</label>
+      <input type="text" id="sender" placeholder="e.g. John" />
+    </div>
+    <div class="form-group full">
+      <label>Purpose / type</label>
+      <select id="purpose">
+        <option value="">Select a purpose...</option>
+        <option value="follow-up">Follow-up</option>
+        <option value="introduction">Introduction</option>
+        <option value="request">Request / Ask</option>
+        <option value="thank you">Thank you</option>
+        <option value="apology">Apology</option>
+        <option value="complaint">Complaint</option>
+        <option value="job application">Job application</option>
+        <option value="meeting invite">Meeting invite</option>
+        <option value="cold outreach">Cold outreach</option>
+        <option value="announcement">Announcement</option>
+        <option value="resignation">Resignation</option>
+        <option value="feedback">Feedback</option>
+      </select>
+    </div>
+    <div class="form-group full">
+      <label>Key points to include</label>
+      <textarea id="points" placeholder="What do you want to say? e.g. I want to follow up on our meeting last Tuesday, ask for the proposal, and suggest a next call..."></textarea>
+    </div>
+    <div class="form-group full">
+      <label>Tone</label>
+      <div class="tone-pills">
+        <div class="pill active" data-tone="professional">Professional</div>
+        <div class="pill" data-tone="friendly">Friendly</div>
+        <div class="pill" data-tone="formal">Formal</div>
+        <div class="pill" data-tone="casual">Casual</div>
+        <div class="pill" data-tone="persuasive">Persuasive</div>
+        <div class="pill" data-tone="concise">Concise</div>
+        <div class="pill" data-tone="empathetic">Empathetic</div>
+        <div class="pill" data-tone="assertive">Assertive</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Length</label>
+      <select id="length">
+        <option value="short">Short (2–3 sentences)</option>
+        <option value="medium" selected>Medium (1–2 paragraphs)</option>
+        <option value="long">Long (detailed)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Language</label>
+      <select id="language">
+        <option value="English">English</option>
+        <option value="Spanish">Spanish</option>
+        <option value="French">French</option>
+        <option value="German">German</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Portuguese">Portuguese</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Arabic">Arabic</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="generate-btn" id="generateBtn" onclick="generateEmail()">Generate email</button>
+
+  <hr class="divider" />
+
+  <div class="output-section" id="outputSection">
+    <div class="output-header">
+      <span class="output-label">Generated email</span>
+      <button class="copy-btn" onclick="copyEmail()">Copy</button>
+    </div>
+    <div class="output-card">
+      <div class="subject-line" id="subjectLine" style="display:none">Subject: <span id="subjectText"></span></div>
+      <div class="email-body" id="emailBody"></div>
+    </div>
+    <button class="generate-btn" style="margin-top:10px;background:var(--color-background-secondary);color:var(--color-text-primary);border:0.5px solid var(--color-border-secondary);" onclick="generateEmail()">Regenerate</button>
+  </div>
+</div>
+
+<script>
+let selectedTone = 'professional';
+
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    selectedTone = pill.dataset.tone;
+  });
+});
+
+async function generateEmail() {
+  const recipient = document.getElementById('recipient').value.trim();
+  const sender = document.getElementById('sender').value.trim();
+  const purpose = document.getElementById('purpose').value;
+  const points = document.getElementById('points').value.trim();
+  const length = document.getElementById('length').value;
+  const language = document.getElementById('language').value;
+
+  if (!purpose && !points) {
+    document.getElementById('points').focus();
+    return;
+  }
+
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>';
+
+  const outputSection = document.getElementById('outputSection');
+  const emailBody = document.getElementById('emailBody');
+  const subjectLine = document.getElementById('subjectLine');
+  outputSection.classList.add('visible');
+  emailBody.textContent = '';
+  subjectLine.style.display = 'none';
+
+  const prompt = `Write an email with these details:
+- To: ${recipient || 'the recipient'}
+- From: ${sender || 'the sender'}
+- Purpose: ${purpose || 'general communication'}
+- Key points: ${points || 'general message'}
+- Tone: ${selectedTone}
+- Length: ${length}
+- Language: ${language}
+
+Respond in this exact JSON format (no markdown, no backticks):
+{"subject":"...","body":"..."}
+
+The body should be the complete email text including greeting and sign-off, formatted naturally with line breaks. Write entirely in ${language}.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const text = data.content?.map(b => b.text || '').join('') || '';
+
+    try {
+      const clean = text.replace(/```json|```/g, '').trim();
+      const parsed = JSON.parse(clean);
+      document.getElementById('subjectText').textContent = parsed.subject || '';
+      subjectLine.style.display = parsed.subject ? 'block' : 'none';
+      emailBody.textContent = parsed.body || text;
+    } catch {
+      emailBody.textContent = text;
+    }
+  } catch (err) {
+    emailBody.textContent = 'Something went wrong. Please try again.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Generate email';
+}
+
+function copyEmail() {
+  const subject = document.getElementById('subjectText').textContent;
+  const body = document.getElementById('emailBody').textContent;
+  const full = subject ? `Subject: ${subject}\n\n${body}` : body;
+  navigator.clipboard.writeText(full).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+</script>
